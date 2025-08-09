@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'signup_screens.dart';
-import '../../home/main.dart'; // Import your home screen
+// Import your home screen
 import '../../main_navigation_screen.dart';
 
 class LoginScreens extends StatefulWidget {

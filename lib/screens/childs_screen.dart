@@ -30,8 +30,14 @@ class ChildsScreen extends StatelessWidget {
             grade: 'Grade 3',
             avatar: 'E',
             color: Colors.pink,
-            activities: ['Soccer', 'Drawing', 'Reading'],
-            nextActivity: 'Soccer Practice - Today 4:00 PM',
+            activities: [
+              'Watching YouTube',
+              'Using Instagram',
+              'Playing Games',
+            ],
+            nextActivity: 'Screen time restriction - Today 4:00 PM',
+            screenTime: '2h 45m today',
+            alertLevel: 'Safe',
           ),
           const SizedBox(height: 16),
           _buildChildCard(
@@ -40,8 +46,10 @@ class ChildsScreen extends StatelessWidget {
             grade: 'Grade 5',
             avatar: 'A',
             color: Colors.blue,
-            activities: ['Piano', 'Math Club', 'Basketball'],
-            nextActivity: 'Piano Lesson - Tomorrow 2:00 PM',
+            activities: ['Browsing Web', 'Discord Chat', 'Watching TikTok'],
+            nextActivity: 'Study time restriction - Tomorrow 2:00 PM',
+            screenTime: '4h 12m today',
+            alertLevel: 'Monitor',
           ),
           const SizedBox(height: 16),
           _buildChildCard(
@@ -50,8 +58,10 @@ class ChildsScreen extends StatelessWidget {
             grade: 'Grade 1',
             avatar: 'S',
             color: Colors.green,
-            activities: ['Swimming', 'Art', 'Dance'],
-            nextActivity: 'Swimming Class - Friday 10:00 AM',
+            activities: ['Educational Apps', 'Video Calls', 'Drawing App'],
+            nextActivity: 'Bedtime mode - Tonight 8:00 PM',
+            screenTime: '1h 30m today',
+            alertLevel: 'Safe',
           ),
           const SizedBox(height: 24),
 
@@ -108,7 +118,15 @@ class ChildsScreen extends StatelessWidget {
     required Color color,
     required List<String> activities,
     required String nextActivity,
+    required String screenTime,
+    required String alertLevel,
   }) {
+    Color alertColor = alertLevel == 'Safe'
+        ? Colors.green
+        : alertLevel == 'Monitor'
+        ? Colors.orange
+        : Colors.red;
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -157,6 +175,39 @@ class ChildsScreen extends StatelessWidget {
                       '$age • $grade',
                       style: const TextStyle(fontSize: 14, color: Colors.grey),
                     ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        Icon(Icons.schedule, size: 14, color: Colors.grey[600]),
+                        const SizedBox(width: 4),
+                        Text(
+                          screenTime,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: alertColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            alertLevel,
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: alertColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -177,19 +228,29 @@ class ChildsScreen extends StatelessWidget {
                     value: 'activities',
                     child: Row(
                       children: [
-                        Icon(Icons.sports, size: 20),
+                        Icon(Icons.phone_android, size: 20),
                         SizedBox(width: 8),
-                        Text('Manage Activities'),
+                        Text('View Activity Log'),
                       ],
                     ),
                   ),
                   const PopupMenuItem(
-                    value: 'progress',
+                    value: 'restrictions',
                     child: Row(
                       children: [
-                        Icon(Icons.trending_up, size: 20),
+                        Icon(Icons.security, size: 20),
                         SizedBox(width: 8),
-                        Text('View Progress'),
+                        Text('Manage Restrictions'),
+                      ],
+                    ),
+                  ),
+                  const PopupMenuItem(
+                    value: 'reports',
+                    child: Row(
+                      children: [
+                        Icon(Icons.analytics, size: 20),
+                        SizedBox(width: 8),
+                        Text('View Reports'),
                       ],
                     ),
                   ),
@@ -202,9 +263,9 @@ class ChildsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          // Activities Section
+          // Recent Digital Activities Section
           const Text(
-            'Current Activities',
+            'Recent Digital Activities',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -226,13 +287,24 @@ class ChildsScreen extends StatelessWidget {
                       color: color.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Text(
-                      activity,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: color,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          _getActivityIcon(activity),
+                          size: 14,
+                          color: color,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          activity,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: color,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 )
@@ -240,7 +312,7 @@ class ChildsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          // Next Activity
+          // Next Scheduled Action
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -249,7 +321,7 @@ class ChildsScreen extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(Icons.schedule, size: 16, color: Colors.grey[600]),
+                Icon(Icons.upcoming, size: 16, color: Colors.grey[600]),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -267,6 +339,31 @@ class ChildsScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  IconData _getActivityIcon(String activity) {
+    switch (activity.toLowerCase()) {
+      case 'watching youtube':
+        return Icons.play_circle_outline;
+      case 'using instagram':
+        return Icons.camera_alt;
+      case 'playing games':
+        return Icons.videogame_asset;
+      case 'browsing web':
+        return Icons.web;
+      case 'discord chat':
+        return Icons.chat;
+      case 'watching tiktok':
+        return Icons.music_note;
+      case 'educational apps':
+        return Icons.school;
+      case 'video calls':
+        return Icons.video_call;
+      case 'drawing app':
+        return Icons.brush;
+      default:
+        return Icons.phone_android;
+    }
   }
 
   void _showAddChildDialog(BuildContext context) {
@@ -297,6 +394,14 @@ class ChildsScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: 'Grade',
                   border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Device ID (Optional)',
+                  border: OutlineInputBorder(),
+                  helperText: 'Link child\'s device for monitoring',
                 ),
               ),
             ],

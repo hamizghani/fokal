@@ -101,17 +101,7 @@ class AccountScreen extends StatelessWidget {
                       'Connect your child\'s device to yours',
                       () => _showPairDeviceDialog(context),
                     ),
-                    _buildSettingsItem(
-                      Icons.devices,
-                      'Manage Paired Devices',
-                      'View and manage connected devices',
-                      () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PairedDevicesScreen(),
-                        ),
-                      ),
-                    ),
+                    
                   ]),
 
                   const SizedBox(height: 24),
