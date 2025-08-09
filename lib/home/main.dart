@@ -3,7 +3,7 @@ import '../bottom_navbar.dart';
 import '../main_navigation_screen.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

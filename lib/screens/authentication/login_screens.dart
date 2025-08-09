@@ -5,7 +5,7 @@ import '../../home/main.dart'; // Import your home screen
 import '../../main_navigation_screen.dart';
 
 class LoginScreens extends StatefulWidget {
-  const LoginScreens({Key? key}) : super(key: key);
+  const LoginScreens({super.key});
 
   @override
   State<LoginScreens> createState() => _LoginScreensState();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ChildsScreen extends StatelessWidget {
-  const ChildsScreen({Key? key}) : super(key: key);
+  const ChildsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class ChildsScreen extends StatelessWidget {
             nextActivity: 'Swimming Class - Friday 10:00 AM',
           ),
           const SizedBox(height: 24),
-          
+
           // Add Child Button
           Container(
             width: double.infinity,
@@ -155,10 +155,7 @@ class ChildsScreen extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       '$age • $grade',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
+                      style: const TextStyle(fontSize: 14, color: Colors.grey),
                     ),
                   ],
                 ),
@@ -204,7 +201,7 @@ class ChildsScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          
+
           // Activities Section
           const Text(
             'Current Activities',
@@ -218,24 +215,31 @@ class ChildsScreen extends StatelessWidget {
           Wrap(
             spacing: 8,
             runSpacing: 4,
-            children: activities.map((activity) => Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                activity,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: color,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            )).toList(),
+            children: activities
+                .map(
+                  (activity) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: color.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      activity,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: color,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
           ),
           const SizedBox(height: 16),
-          
+
           // Next Activity
           Container(
             padding: const EdgeInsets.all(12),
@@ -245,11 +249,7 @@ class ChildsScreen extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(
-                  Icons.schedule,
-                  size: 16,
-                  color: Colors.grey[600],
-                ),
+                Icon(Icons.schedule, size: 16, color: Colors.grey[600]),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
