@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'signup_screens.dart';
+import '../../home/main.dart'; // Import your home screen
+import '../../main_navigation_screen.dart';
 
 class LoginScreens extends StatefulWidget {
   const LoginScreens({Key? key}) : super(key: key);
@@ -35,13 +37,48 @@ class _LoginScreensState extends State<LoginScreens> {
       setState(() {
         _isLoading = true;
       });
-      // Simulate a login process
-      Future.delayed(Duration(seconds: 2), () {
-        setState(() {
-          _isLoading = false;
-        });
-        // Navigate to the next screen or show success message
-      });
+      
+      try {
+        // Simulate a login process
+        await Future.delayed(const Duration(seconds: 2));
+        
+        // If login is successful, navigate to home screen
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+          
+          // Navigate to MainNavigationScreen (with navbar) instead of MainScreen
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => const MainNavigationScreen(), // ← Changed this line
+            ),
+            (Route<dynamic> route) => false,
+          );
+          
+          // Show success message
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Login successful!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      } catch (error) {
+        // Handle login error
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Login failed: ${error.toString()}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
     }
   }
 
@@ -60,7 +97,7 @@ class _LoginScreensState extends State<LoginScreens> {
                 const SizedBox(height: 60),
 
                 // Logo or App Name
-                const Icon(Icons.lock_outline, size: 80, color: Colors.blue),
+                const Icon(Icons.lock_outline, size: 80, color: Colors.purple),
                 const SizedBox(height: 24),
 
                 // Welcome Text
@@ -100,7 +137,7 @@ class _LoginScreensState extends State<LoginScreens> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: const BorderSide(
-                        color: Colors.blue,
+                        color: Colors.purple,
                         width: 2,
                       ),
                     ),
@@ -146,7 +183,7 @@ class _LoginScreensState extends State<LoginScreens> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: const BorderSide(
-                        color: Colors.blue,
+                        color: Colors.purple,
                         width: 2,
                       ),
                     ),
@@ -177,7 +214,7 @@ class _LoginScreensState extends State<LoginScreens> {
                               _isrememberMe = value ?? false;
                             });
                           },
-                          activeColor: Colors.blue,
+                          activeColor: Colors.purple,
                         ),
                         const Text('Remember me'),
                       ],
@@ -205,7 +242,7 @@ class _LoginScreensState extends State<LoginScreens> {
                   child: ElevatedButton(
                     onPressed: _isLoading ? null : _handleLogin,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.purple,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -284,7 +321,7 @@ class _LoginScreensState extends State<LoginScreens> {
                             ),
                           );
                         },
-                        icon: const Icon(Icons.facebook, color: Colors.blue),
+                        icon: const Icon(Icons.facebook, color: Colors.purple),
                         label: const Text('Facebook'),
                         style: OutlinedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 12),

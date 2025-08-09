@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'login_screens.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -93,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const Icon(
                   Icons.person_add_outlined,
                   size: 80,
-                  color: Colors.green,
+                  color: Colors.purple,
                 ),
                 const SizedBox(height: 24),
 
@@ -134,7 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: const BorderSide(
-                        color: Colors.green,
+                        color: Colors.purple,
                         width: 2,
                       ),
                     ),
@@ -170,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: const BorderSide(
-                        color: Colors.green,
+                        color: Colors.purple,
                         width: 2,
                       ),
                     ),
@@ -216,7 +217,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: const BorderSide(
-                        color: Colors.green,
+                        color: Colors.purple,
                         width: 2,
                       ),
                     ),
@@ -265,7 +266,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: const BorderSide(
-                        color: Colors.green,
+                        color: Colors.purple,
                         width: 2,
                       ),
                     ),
@@ -294,7 +295,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           _acceptTerms = value ?? false;
                         });
                       },
-                      activeColor: Colors.green,
+                      activeColor: Colors.purple,
                     ),
                     Expanded(
                       child: GestureDetector(
@@ -322,7 +323,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: ElevatedButton(
                     onPressed: _isLoading ? null : _handleSignUp,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: Colors.purple,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -401,7 +402,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           );
                         },
-                        icon: const Icon(Icons.facebook, color: Colors.blue),
+                        icon: const Icon(Icons.facebook, color: Colors.purple),
                         label: const Text('Facebook'),
                         style: OutlinedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 12),
@@ -422,7 +423,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const Text("Already have an account? "),
                     TextButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreens(),
+                          ),
+                        );
                       },
                       child: const Text(
                         'Sign In',

@@ -3,7 +3,7 @@ import 'screens/authentication/login_screens.dart';
 import 'screens/authentication/signup_screens.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MyApp()); 
 }
 
 class MyApp extends StatelessWidget {
@@ -48,7 +48,7 @@ class WelcomeScreen extends StatelessWidget {
             children: [
               const Spacer(flex: 2),
               
-              // Logo Fokal
+              // Logo Fokal 
               Container(
                 width: 120,
                 height: 120,
@@ -63,15 +63,12 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: const Center(
-                  child: Text(
-                    'FOKAL',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF6A1B9A),
-                      letterSpacing: 2,
-                    ),
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/fokal_logo.png',
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -80,7 +77,7 @@ class WelcomeScreen extends StatelessWidget {
               
               // Welcome Text
               const Text(
-                'Welcome to Fokal',
+                'Protect Your Family',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -93,7 +90,7 @@ class WelcomeScreen extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 40),
                 child: Text(
-                  'Your journey starts here. Connect, share, and discover amazing moments.',
+                  'Keep your children safe online with comprehensive parental control and content filtering.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
@@ -105,7 +102,7 @@ class WelcomeScreen extends StatelessWidget {
               
               const Spacer(flex: 3),
               
-              // Next Button
+              // Get Started Button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: SizedBox(
@@ -130,7 +127,7 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                     ),
                     child: const Text(
-                      'Next',
+                      'Get Started',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -153,7 +150,7 @@ class WelcomeScreen extends StatelessWidget {
                   );
                 },
                 child: const Text(
-                  'Already have an account? Login',
+                  'Already protecting your family? Sign In',
                   style: TextStyle(
                     color: Colors.white70,
                     fontSize: 14,
