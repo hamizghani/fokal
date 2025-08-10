@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // Import your screen files here
 import 'home/main.dart';
-// import 'home/activity.dart'; 
+// import 'home/activity.dart';
 import 'screens/notifications_screen.dart';
 import 'screens/childs_screen.dart';
 import 'screens/account_screen.dart';
@@ -18,10 +18,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   // Replace these with your actual screen widgets
   final List<Widget> _screens = [
-    MainScreen(),           // Your existing home/main.dart
-    NotificationsScreen(),  // Create this new screen
-    ChildsScreen(),        // Create this new screen  
-    AccountScreen(),       // Create this new screen
+    MainScreen(), // Your existing home/main.dart
+    NotificationsScreen(), // Create this new screen
+    ChildsScreen(), // Create this new screen
+    AccountScreen(), // Create this new screen
   ];
 
   void _onTabTapped(int index) {
@@ -47,11 +47,7 @@ class PlaceholderScreen extends StatelessWidget {
   final String title;
   final IconData icon;
 
-  const PlaceholderScreen({
-    super.key,
-    required this.title,
-    required this.icon,
-  });
+  const PlaceholderScreen({super.key, required this.title, required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +62,7 @@ class PlaceholderScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: 80,
-              color: Colors.purple,
-            ),
+            Icon(icon, size: 80, color: Colors.purple),
             const SizedBox(height: 16),
             Text(
               title,
@@ -83,10 +75,7 @@ class PlaceholderScreen extends StatelessWidget {
             const SizedBox(height: 8),
             const Text(
               'This is a placeholder screen',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
+              style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
           ],
         ),
@@ -141,9 +130,9 @@ class BottomNavBar extends StatelessWidget {
             label: 'Notifications',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.child_care_outlined),
+            icon: Icon(Icons.devices_outlined),
             activeIcon: Icon(Icons.child_care),
-            label: "Child's",
+            label: "Devices",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
