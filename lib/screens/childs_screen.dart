@@ -25,7 +25,7 @@ class ChildsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         children: [
           _buildChildCard(
-            name: 'Emma Wilson',
+            name: 'Kiara Azka',
             age: '8 years old',
             grade: 'Grade 3',
             avatar: 'E',
@@ -41,7 +41,7 @@ class ChildsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _buildChildCard(
-            name: 'Alex Wilson',
+            name: 'Hamiz Ghani',
             age: '10 years old',
             grade: 'Grade 5',
             avatar: 'A',
@@ -53,7 +53,7 @@ class ChildsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _buildChildCard(
-            name: 'Sophie Wilson',
+            name: 'Chelsea Livy',
             age: '6 years old',
             grade: 'Grade 1',
             avatar: 'S',
@@ -313,29 +313,6 @@ class ChildsScreen extends StatelessWidget {
           const SizedBox(height: 16),
 
           // Next Scheduled Action
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[50],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.upcoming, size: 16, color: Colors.grey[600]),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Next: $nextActivity',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey[600],
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );

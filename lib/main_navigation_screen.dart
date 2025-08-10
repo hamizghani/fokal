@@ -131,7 +131,7 @@ class BottomNavBar extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.devices_outlined),
-            activeIcon: Icon(Icons.child_care),
+            activeIcon: Icon(Icons.devices),
             label: "Devices",
           ),
           BottomNavigationBarItem(

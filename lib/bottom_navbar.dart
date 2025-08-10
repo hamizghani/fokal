@@ -45,9 +45,9 @@ class BottomNavBar extends StatelessWidget {
             label: 'Notifications',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.child_care_outlined),
-            activeIcon: Icon(Icons.child_care),
-            label: "Child's",
+            icon: Icon(Icons.devices_outlined),
+            activeIcon: Icon(Icons.devices),
+            label: "Devices",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
