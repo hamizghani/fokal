@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui'; // Import dart:ui for ImageFilter
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
@@ -54,6 +55,7 @@ class NotificationsScreen extends StatelessWidget {
             appSource: 'Tomi\'s Phone',
             detectionType: 'Visual Content',
             confidence: '85%',
+            imagePath: 'lib/assets/images/imagedetect.png',
           ),
           const SizedBox(height: 12),
           _buildNotificationCard(
@@ -68,6 +70,7 @@ class NotificationsScreen extends StatelessWidget {
             appSource: 'Alex\'s Phone',
             detectionType: 'Text Content',
             confidence: '100%',
+            imagePath: 'lib/assets/images/pornotext_detected.png',
           ),
           const SizedBox(height: 24),
 
@@ -97,13 +100,14 @@ class NotificationsScreen extends StatelessWidget {
             appSource: 'Sophie\'s Tablet',
             detectionType: 'Security Breach',
             confidence: '80%',
+            imagePath: null, // No image for security breach
           ),
           const SizedBox(height: 12),
           _buildNotificationCard(
             context: context,
             title: 'Pornography Detected (Implicit)',
             message:
-                'Inappropriate visual content detected on Tomi\'s Phone during browsing session',
+                'Inappropriate visual content detected on Tomi\'s Phone during Browse session',
             time: '2 hours ago',
             icon: Icons.warning,
             iconColor: const Color(0xFFE53935),
@@ -112,6 +116,7 @@ class NotificationsScreen extends StatelessWidget {
             appSource: 'Tomi\'s Phone',
             detectionType: 'Visual Content',
             confidence: '90%',
+            imagePath: 'lib/assets/images/imagedetect2.png',
           ),
           const SizedBox(height: 12),
           _buildNotificationCard(
@@ -127,6 +132,7 @@ class NotificationsScreen extends StatelessWidget {
             appSource: 'Juna\'s Phone',
             detectionType: 'Visual Content',
             confidence: '95%',
+            imagePath: 'lib/assets/images/imagedetect3.png',
           ),
           const SizedBox(height: 12),
           _buildNotificationCard(
@@ -140,6 +146,7 @@ class NotificationsScreen extends StatelessWidget {
             severity: 'INFO',
             appSource: 'System',
             detectionType: 'Report',
+            imagePath: null, // No image for reports
           ),
           const SizedBox(height: 24),
 
@@ -166,6 +173,7 @@ class NotificationsScreen extends StatelessWidget {
             severity: 'INFO',
             appSource: 'System',
             detectionType: 'System Update',
+            imagePath: null, // No image for system updates
           ),
           const SizedBox(height: 12),
           _buildNotificationCard(
@@ -179,6 +187,7 @@ class NotificationsScreen extends StatelessWidget {
             severity: 'INFO',
             appSource: 'System',
             detectionType: 'Report',
+            imagePath: null, // No image for reports
           ),
         ],
       ),
@@ -197,6 +206,7 @@ class NotificationsScreen extends StatelessWidget {
     required String appSource,
     required String detectionType,
     String? confidence,
+    String? imagePath,
   }) {
     Color getBorderColor() {
       switch (severity) {
@@ -354,6 +364,7 @@ class NotificationsScreen extends StatelessWidget {
               severity,
               time,
               confidence,
+              imagePath,
             );
           }
         },
@@ -369,6 +380,7 @@ class NotificationsScreen extends StatelessWidget {
     String severity,
     String time,
     String? confidence,
+    String? imagePath, // Use imagePath instead of imageUrl
   ) {
     showModalBottomSheet(
       context: context,
@@ -439,10 +451,11 @@ class NotificationsScreen extends StatelessWidget {
 
                     const SizedBox(height: 20),
 
+                    // Condition to show the screenshot section
                     if (detectionType.contains('Visual') ||
                         detectionType.contains('Image') ||
                         title.contains('Pornography'))
-                      _buildScreenshotSection(),
+                      _buildScreenshotSection(imagePath), // Pass imagePath here
 
                     if (detectionType.contains('Text') ||
                         title.contains('Pornotext'))
@@ -577,7 +590,8 @@ class NotificationsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildScreenshotSection() {
+  // MODIFIED METHOD
+  Widget _buildScreenshotSection(String? imagePath) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -590,34 +604,45 @@ class NotificationsScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        Container(
-          height: 200,
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
+        Card(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.grey[300]!),
           ),
-          child: const Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.image, size: 48, color: Colors.grey),
-                SizedBox(height: 8),
-                Text(
-                  'Screenshot captured at detection time',
-                  style: TextStyle(color: Colors.grey),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  '[Content blurred for privacy]',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ],
+          child: ExpansionTile(
+            title: const Text(
+              'Tap to view blurred screenshot',
+              style: TextStyle(
+                color: Colors.black54,
+                fontWeight: FontWeight.w500,
+              ),
             ),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: imagePath != null
+                    ? ImageFiltered(
+                        imageFilter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            imagePath, // Use Image.asset() for local files
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Text(
+                                'Failed to load image.',
+                                style: TextStyle(color: Colors.red),
+                              );
+                            },
+                          ),
+                        ),
+                      )
+                    : const Text(
+                        'No screenshot available.',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 20),
@@ -625,7 +650,8 @@ class NotificationsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTextContentSection() {
+
+Widget _buildTextContentSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -674,6 +700,39 @@ class NotificationsScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
+        // --- Bagian baru untuk melihat gambar ---
+        Card(
+          color: Colors.white,
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: ExpansionTile(
+            title: const Text(
+              'Lihat gambar yang terdeteksi',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.red,
+              ),
+            ),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Image.network(
+                  'lib/assets/images/pornotext_detected.png',
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Text(
+                      'Tidak dapat memuat gambar.',
+                      style: TextStyle(color: Colors.grey),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -949,15 +1008,15 @@ class NotificationsScreen extends StatelessWidget {
                 child: ListView(
                   controller: scrollController,
                   padding: const EdgeInsets.all(20),
-                  children: [
+                  children: const [
                     // Content implementation continues...
                     Row(
                       children: [
-                        OutlinedButton.icon(
-                          onPressed: () => Navigator.pop(context),
-                          icon: const Icon(Icons.close),
-                          label: const Text('Close'),
-                        ),
+                        // OutlinedButton.icon(
+                        //   onPressed: () => Navigator.pop(context),
+                        //   icon: const Icon(Icons.close),
+                        //   label: const Text('Close'),
+                        // ),
                       ],
                     ),
                   ],
@@ -1000,15 +1059,15 @@ class NotificationsScreen extends StatelessWidget {
                 child: ListView(
                   controller: scrollController,
                   padding: const EdgeInsets.all(20),
-                  children: [
+                  children: const [
                     // Content implementation...
                     Row(
                       children: [
-                        OutlinedButton.icon(
-                          onPressed: () => Navigator.pop(context),
-                          icon: const Icon(Icons.close),
-                          label: const Text('Close'),
-                        ),
+                        // OutlinedButton.icon(
+                        //   onPressed: () => Navigator.pop(context),
+                        //   icon: const Icon(Icons.close),
+                        //   label: const Text('Close'),
+                        // ),
                       ],
                     ),
                   ],

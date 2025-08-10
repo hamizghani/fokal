@@ -65,7 +65,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 child: Center(
                   child: Image.asset(
-                    'assets/images/fokal_logo.png',
+                    'lib/assets/images/fokal_logo.png',
                     width: 80,
                     height: 80,
                     fit: BoxFit.contain,
