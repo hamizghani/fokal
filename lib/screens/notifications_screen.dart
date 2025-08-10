@@ -650,8 +650,7 @@ class NotificationsScreen extends StatelessWidget {
     );
   }
 
-
-Widget _buildTextContentSection() {
+  Widget _buildTextContentSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -720,7 +719,7 @@ Widget _buildTextContentSection() {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Image.network(
-                  'lib/assets/images/pornotext_detected.png',
+                  'URL_GAMBAR_YANG_TERDETEKSI_DI_SINI',
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return const Text(
