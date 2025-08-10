@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fokal/screens/notifications_screen.dart';
+
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -15,7 +17,15 @@ class MainScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
-            onPressed: () {},
+            onPressed: () {
+              // Navigate to notifications
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationsScreen(),
+                ),
+              );
+            },
           ),
           IconButton(
             icon: const Icon(Icons.settings_outlined),
@@ -142,7 +152,15 @@ class MainScreen extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Navigate to notifications page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NotificationsScreen(),
+                      ),
+                    );
+                  },
                   child: const Text(
                     'View All',
                     style: TextStyle(
@@ -179,7 +197,7 @@ class MainScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             _buildAlertCard(
-              'ornography Detected (Explicit)',
+              'Pornography Detected (Explicit)',
               'Juna\'s Phone • 3 hours ago',
               Icons.warning,
               const Color(0xFFE53935),
@@ -341,3 +359,7 @@ class MainScreen extends StatelessWidget {
     );
   }
 }
+
+// Import statement that needs to be added at the top
+// You'll need to add this import for the NotificationsScreen
+// import 'notifications_screen.dart';
